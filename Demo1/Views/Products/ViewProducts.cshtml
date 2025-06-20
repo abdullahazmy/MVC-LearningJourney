@@ -1,0 +1,36 @@
+﻿@namespace Demo1.Models.Products
+@model List<Product>
+
+
+<div class="table-responsive-sm">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+       
+               @foreach(var item in Model)
+               {
+                    <tbody>
+                        <tr>
+                           <td>@item.Id</td>
+                           <td>@item.Name</td>
+                            <td>@item.Description</td>
+                            <td>@item.Price</td>
+                            <td>
+                                <img src ="/Images/@item.ImageUrl" style="width: 400px" />
+                            </td>
+                    <td>
+                        <a href="@Url.Action("Details", "Products", new { id = item.Id })" class="btn btn-primary">View Details</a>
+                        </tr>
+                    </tbody>
+               }
+          
+    </table>
+</div>
+</div>

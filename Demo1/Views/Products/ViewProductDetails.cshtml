@@ -1,0 +1,11 @@
+﻿<div class="card" style="width:400px">
+    <img class="card-img-top" alt="@Model.Name Image" src="/Images/@Model.ImageUrl">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">Price: @Model.Price</p>
+        <p class="card-text">Description: @Model.Description</p>
+        <a href="@Url.Action("Index", "Products")" class="btn btn-primary">Back to Products</a>
+    </div>
+</div>
+
+
