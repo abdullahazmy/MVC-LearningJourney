@@ -1,0 +1,57 @@
+﻿@model List<Department>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Department Name</th>
+            <th>Location</th>
+            <th>Employee Name</th>
+            <th>Position</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dept in Model)
+        {
+            var employeeCount = dept.Employees?.Count() ?? 0;
+            var rowspan = employeeCount > 0 ? employeeCount : 1;
+
+            <tr>
+                <td rowspan="@rowspan">@dept.Id</td>
+                <td rowspan="@rowspan">@dept.Name</td>
+                <td rowspan="@rowspan">@dept.Location</td>
+
+                @if (employeeCount > 0)
+                {
+                    var firstEmployee = dept.Employees.First();
+                    <td>@firstEmployee.Name</td>
+                    <td>@firstEmployee.Position</td>
+                }
+                else
+                {
+                    <td colspan="2" class="text-muted text-center">No Employees</td>
+                }
+
+                <td rowspan="@rowspan">
+                    <a href="@Url.Action("Details", "Department", new { id = dept.Id })" class="btn btn-primary btn-sm">View</a>
+                    <a href="@Url.Action("Edit", "Department", new { id = dept.Id })" class="btn btn-secondary btn-sm">Edit</a>
+                    <a href="@Url.Action("Delete", "Department", new { id = dept.Id })" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+
+            @foreach (var emp in dept.Employees.Skip(1))
+            {
+                <tr>
+                    <td>@emp.Name</td>
+                    <td>@emp.Position</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
