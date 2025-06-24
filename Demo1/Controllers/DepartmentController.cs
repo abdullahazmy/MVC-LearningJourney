@@ -14,10 +14,29 @@ namespace Demo1.Controllers
         }
         public IActionResult Index()
         {
-
-            // Get All Departments
+            // Get All Departments  
             List<Department> departments = context.Departments.Include(e => e.Employees).ToList();
             return View("Index", departments);
+        }
+
+        public IActionResult New()
+        {
+            // Show New Department Form  
+            return View("New", new Department());
+        }
+
+        [HttpPost]
+        public IActionResult Create(Department department)
+        {
+            if (department.Name == null || department.Location == null)
+            {
+                ModelState.AddModelError("", "Name and Location are required.");
+                return View("New", department);
+            }
+            // Add New Department  
+            context.Departments.Add(department);
+            context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
